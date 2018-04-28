@@ -149,8 +149,8 @@ function autocomplete(input, latInput, lngInput) {
         lat = _place$geometry$locat.lat,
         lng = _place$geometry$locat.lng;
 
-    latInput.value = Math.round(lat());
-    lngInput.value = Math.round(lng());
+    latInput.value = lat();
+    lngInput.value = lng();
   });
 
   // If someone hits enter on the address field, don't submit the form

@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
+
 const User = mongoose.model('User');
 const promisify = require('es6-promisify');
 
 exports.loginForm = (req, res) => {
   res.render('login', { title: 'Login' });
-}
+};
 
 exports.registerForm = (req, res) => {
   res.render('register', { title: 'Register' });
-}
+};
 
 exports.validateRegister = (req, res, next) => {
   req.sanitizeBody('name');
@@ -17,7 +18,7 @@ exports.validateRegister = (req, res, next) => {
   req.sanitizeBody('email').normalizeEmail({
     remove_dots: false,
     remove_extension: false,
-    gmail_remove_subaddress: false
+    gmail_remove_subaddress: false,
   });
   req.checkBody('password', 'Password cannot be blank!').notEmpty();
   req.checkBody('password-confirm', 'Confirmed password cannot be blank!').notEmpty();
@@ -26,7 +27,7 @@ exports.validateRegister = (req, res, next) => {
   const errors = req.validationErrors();
   if (errors) {
     req.flash('error', errors.map(err => err.msg));
-    res.render('register', { title: 'Register', body:req.body, flashes: req.flash() });
+    res.render('register', { title: 'Register', body: req.body, flashes: req.flash() });
     return;
   }
   next();
@@ -41,7 +42,7 @@ exports.register = async (req, res, next) => {
 
 exports.account = (req, res) => {
   res.render('account', { title: 'Edit you account' });
-}
+};
 
 exports.updateAccount = async (req, res) => {
   // 1. update user with supplied data
@@ -49,8 +50,8 @@ exports.updateAccount = async (req, res) => {
   // 3. redirect to account
   const updates = {
     name: req.body.name,
-    email: req.body.email
-  }
+    email: req.body.email,
+  };
 
   const user = await User.findOneAndUpdate(
     { _id: req.user._id },
@@ -59,4 +60,4 @@ exports.updateAccount = async (req, res) => {
   );
   req.flash('success', 'Profile updated successfully!');
   res.redirect('back');
-}
+};

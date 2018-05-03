@@ -1,5 +1,8 @@
+// import { isDate } from 'util';
+
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 mongoose.Promise = global.Promise;
 const md5 = require('md5');
 const validator = require('validator');
@@ -19,7 +22,9 @@ const userSchema = new Schema({
     type: String,
     required: 'Please supply a name',
     trim: true
-  }
+  },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 });
 
 userSchema.virtual('gravatar').get(function() {

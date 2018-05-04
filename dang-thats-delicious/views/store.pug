@@ -8,7 +8,7 @@ block content
         a(href=`/stores/${store.slug}`) #{store.name}
 
   .single__details.inner
-    img.single__map(src=h.staticMap([store.location.coordinates.lng, store.location.coordinates.lat]))
+    img.single__map(src=h.staticMap([store.location.coordinates[0], store.location.coordinates[1]]))
     p.single__location= store.location.address
     p= store.description
 

@@ -46,6 +46,7 @@ exports.resize = async(req, res, next) => {
 }
 
 exports.createStore = async (req, res) => {
+  console.log("creating store: ", req.body);
   req.body.author = req.user._id;
   const store = await (new Store(req.body)).save();
   req.flash('success', `Sucessfully Created ${store.name}. Care to leave a review?`);
@@ -133,6 +134,10 @@ exports.mapStores = async (req, res) => {
     }
   };
 
-  const stores = await Store.find(q).select('slug name description location').limit(10);
+  const stores = await Store.find(q).select('slug name description location photo').limit(10);
   res.json(stores);
+}
+
+exports.mapPage = (req, res) => {
+  res.render('map', { title: 'Map' });
 }

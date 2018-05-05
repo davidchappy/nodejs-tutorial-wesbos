@@ -7,7 +7,6 @@ const promisify = require('es6-promisify');
 // Postmark
 const postmark = require('postmark');
 const postmarkClient = new postmark.Client(process.env.MAIL_USER);
-console.log(postmarkClient);
 
 // const transport = nodemailer.createTransport({
 //   host: process.env.MAIL_HOST,

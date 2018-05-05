@@ -35,7 +35,6 @@ exports.resize = async(req, res, next) => {
     next(); // skip to the next middleware
     return;
   }
-  console.log(req.file);
   const extension = req.file.mimetype.split('/')[1];
   req.body.photo = `${uuid.v4()}.${extension}`;
   // resize
@@ -47,7 +46,6 @@ exports.resize = async(req, res, next) => {
 }
 
 exports.createStore = async (req, res) => {
-  console.log("creating store: ", req.body);
   req.body.author = req.user._id;
   const store = await (new Store(req.body)).save();
   req.flash('success', `Sucessfully Created ${store.name}. Care to leave a review?`);
